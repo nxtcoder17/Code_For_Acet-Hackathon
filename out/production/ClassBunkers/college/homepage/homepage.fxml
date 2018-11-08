@@ -5,25 +5,54 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
 
-<VBox fx:controller="college.homepage.Homepage" alignment="CENTER"
+<VBox fx:controller="college.homepage.Homepage"
       xmlns:fx="https://javafx.com/fxml"
       stylesheets="/college/themes/theme.css"
-      styleClass="rootPane" spacing="30">
+      styleClass="rootPane" alignment="CENTER"
+      spacing="30">
 
+    <MenuBar styleClass="menuBar">
+        <Menu text="My_Account" styleClass="menuMenu">
+            <graphic>
+                <ImageView>
+                    <Image url="/college/images/account.png"/>
+                </ImageView>
+            </graphic>
+
+            <MenuItem text="LogOut" onAction="#logout_method">
+                <graphic>
+                    <ImageView>
+                        <Image url="/college/images/exit.png" />
+                    </ImageView>
+                </graphic>
+            </MenuItem>
+
+            <MenuItem text="Exit" onAction="#exit_method">
+                <graphic>
+                    <ImageView>
+                        <Image url="/college/images/exit.png" />
+                    </ImageView>
+                </graphic>
+            </MenuItem>
+        </Menu>
+    </MenuBar>
+
+    <Label text="Welcome to Class Bunkers Home" styleClass="headings"/>
     <Button fx:id="button_search" alignment="CENTER"
             text="Check Free ClassRooms"
-            prefWidth="300" styleClass="submitButton"
+            prefWidth="300"  prefHeight="60"
+            styleClass="homepageButton"
             onAction="#button_search_pressed" />
 
     <Button fx:id="button_roomsdb" alignment="CENTER"
-            text="ClassRooms DB"
-            prefWidth="300" styleClass="submitButton"
+            text="ClassRooms DB" prefHeight="60"
+            prefWidth="300" styleClass="homepageButton"
             onAction="#button_roomsdb_pressed" />
 
     <Button fx:id="button_routine" alignment="CENTER"
-            text="ClassWise Routines"
-            prefWidth="300" styleClass="submitButton"
+            text="ClassWise Routines" prefHeight="60"
+            prefWidth="300" styleClass="homepageButton"
             onAction="#button_routine_pressed" />
 </VBox>
-

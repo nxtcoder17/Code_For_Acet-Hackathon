@@ -22,6 +22,7 @@ public class Controller {
     private static String NOTIFY_ICONS = "/college/images/";
     protected static Database db;
 
+    protected static boolean student = false;
 
     public Controller()
     {
@@ -39,9 +40,9 @@ public class Controller {
     {
         Stage stage = (Stage)node.getScene().getWindow();
         Parent newRoot = FXMLLoader.load(getClass().
-                getResource("/library/ui/homepage/homepage.fxml"));
+                getResource("/college/homepage/homepage.fxml"));
         stage.hide();
-        stage.setScene(new Scene(newRoot, 800, 400));
+        stage.setScene(new Scene(newRoot, 800, 600));
         stage.setTitle("Home Page");
         stage.show();
     }

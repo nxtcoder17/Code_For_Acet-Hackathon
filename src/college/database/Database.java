@@ -16,8 +16,6 @@ public class Database
     private static Statement stmt;
     private static PreparedStatement prepStmt;
 
-    static final int ROOM_COUNT = 10;
-
     protected static HashMap<String, Integer> daysMap = new HashMap<>();
     static {
         daysMap.put("Mon", 1);
@@ -48,13 +46,7 @@ public class Database
         stmt.executeQuery(readFromSQLFile("Thu.sql"));
         stmt.executeQuery(readFromSQLFile("Fri.sql"));
 
-        System.out.println("Before Initialize");
-        initialize_tables("Mon");
-        initialize_tables("Tue");
-        initialize_tables("Wed");
-        initialize_tables("Thu");
-        initialize_tables("Fri");
-        System.out.println("After Initialize");
+        stmt.executeQuery(readFromSQLFile("Rooms.sql"));
     }
 
     private String readFromSQLFile(String filename)
@@ -71,19 +63,14 @@ public class Database
         return s.toString();
     }
 
-    private void initialize_tables(String table)
+    public void initialize_tables(String table, String sno)
             throws SQLException
     {
-        String q = "SELECT * from " + table;
-        stmt = conn.createStatement();
-        ResultSet r = stmt.executeQuery(q);
-//        r.next();
-        if (r.next())
-            return;
-        final String QUERY = "INSERT INTO " + table + " VALUES()";
+        final String QUERY = "INSERT INTO " + table +
+                "(sno)" + " VALUES(?)";
         prepStmt = conn.prepareStatement(QUERY);
-        for (int i=0; i < ROOM_COUNT; i++)
-            prepStmt.executeUpdate();
+        prepStmt.setString(1, sno);
+        prepStmt.executeUpdate();
     }
 
     public void fillChoices(String sec, String day, String f1, String f2, String f3,
@@ -104,7 +91,7 @@ public class Database
             QUERY = "UPDATE " + day +
                     " set " + x + "='True' where sno=?";
             prepStmt = conn.prepareStatement(QUERY);
-            prepStmt.setInt(1, Integer.parseInt(map.get(x)));
+            prepStmt.setString(1, map.get(x));
             prepStmt.executeUpdate();
         }
 
@@ -141,4 +128,28 @@ public class Database
                 " WHERE sno=" + Database.daysMap.get(day);
         return stmt.executeQuery(QUERY);
     }
+
+   public ResultSet getEmptyRooms(String day, String field)
+           throws SQLException
+   {
+       final String QUERY = "SELECT * from " + day +
+               " where "+ field + "='FALSE'";
+       System.out.println(QUERY);
+       return stmt.executeQuery(QUERY);
+   }
+
+   public void addRoom(String room)
+       throws SQLException
+   {
+       final String QUERY = "INSERT INTO Rooms(room) VALUES(?)";
+       prepStmt = conn.prepareStatement(QUERY);
+       prepStmt.setString(1, room);
+       prepStmt.executeUpdate();
+   }
+
+   public ResultSet getRooms()
+           throws SQLException
+   {
+       return stmt.executeQuery("SELECT * from Rooms");
+   }
 }

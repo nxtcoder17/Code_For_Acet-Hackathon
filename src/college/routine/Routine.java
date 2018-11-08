@@ -1,6 +1,7 @@
 package college.routine;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -27,6 +28,14 @@ public class Routine
     @FXML TextField field_sixth;
     @FXML TextField field_seventh;
 
+    @FXML ComboBox<String> combo_first;
+    @FXML ComboBox<String> combo_second;
+    @FXML ComboBox<String> combo_third;
+    @FXML ComboBox<String> combo_fourth;
+    @FXML ComboBox<String> combo_fifth;
+    @FXML ComboBox<String> combo_sixth;
+    @FXML ComboBox<String> combo_seventh;
+
     @FXML Button button_next;
 
     private static String sec = null;
@@ -47,13 +56,15 @@ public class Routine
         } else
             field_day.setText(days.poll());
 
+        // Just make it fetch contents from Database and it's all set
+
         if (Routine.sec != null) {
             combo_class.setValue(Routine.sec);
             populateRoomField(Routine.sec);
             System.out.println("Yes the populate method called");
         }
 
-        // Just make it fetch contents from Database and it's all set
+        populateComboBox();
     }
 
     private void populateRoomField(String section)
@@ -64,13 +75,32 @@ public class Routine
         try {
             r = Controller.db.readRoomField(section, d);
             if (r.next()) {
-                field_first.setText(r.getString("first"));
-                field_second.setText(r.getString("second"));
-                field_third.setText(r.getString("third"));
-                field_fourth.setText(r.getString("fourth"));
-                field_fifth.setText(r.getString("fifth"));
-                field_sixth.setText(r.getString("sixth"));
-                field_seventh.setText(r.getString("seventh"));
+                combo_first.setValue(r.getString("first"));
+                combo_second.setValue(r.getString("second"));
+                combo_third.setValue(r.getString("third"));
+                combo_fourth.setValue(r.getString("fourth"));
+                combo_fifth.setValue(r.getString("fifth"));
+                combo_sixth.setValue(r.getString("sixth"));
+                combo_seventh.setValue(r.getString("seventh"));
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Exception raised");
+            e.printStackTrace();
+        }
+    }
+
+    private void populateComboBox()
+    {
+        try {
+            ResultSet r = Controller.db.getRooms();
+            while (r.next()) {
+                combo_first.getItems().add(r.getString("room"));
+                combo_second.getItems().add(r.getString("room"));
+                combo_third.getItems().add(r.getString("room"));
+                combo_fourth.getItems().add(r.getString("room"));
+                combo_fifth.getItems().add(r.getString("room"));
+                combo_sixth.getItems().add(r.getString("room"));
+                combo_seventh.getItems().add(r.getString("room"));
             }
         } catch (SQLException e) {
             System.out.println("SQL Exception raised");
@@ -81,8 +111,9 @@ public class Routine
     @FXML
     protected void comboBoxListener()
     {
-        String sec = combo_class.getValue();
-        populateRoomField(sec);
+        String s = combo_class.getValue();
+        if (s != null)
+            populateRoomField(s);
     }
 
     @FXML
@@ -92,28 +123,46 @@ public class Routine
         Routine.sec = combo_class.getValue();
         String day = field_day.getText();
 
-        String first = field_first.getText();
-        String second = field_second.getText();
-        String third = field_third.getText();
-        String fourth = field_fourth.getText();
-        String fifth = field_fifth.getText();
-        String sixth = field_sixth.getText();
-        String seventh = field_seventh.getText();
+        String first = combo_first.getValue();
+        String second = combo_second.getValue();
+        String third = combo_third.getValue();
+        String fourth = combo_fourth.getValue();
+        String fifth = combo_fifth.getValue();
+        String sixth = combo_sixth.getValue();
+        String seventh = combo_seventh.getValue();
 
-        boolean condition = first.isEmpty() || second.isEmpty() || third.isEmpty() ||
-                fourth.isEmpty() || fifth.isEmpty() || sixth.isEmpty() || seventh.isEmpty();
-
-        if (!condition)
-            Controller.db.fillChoices(Routine.sec, day, first, second, third,
-                    fourth, fifth, sixth, seventh);
+//        boolean condition = first.isEmpty() || second.isEmpty() || third.isEmpty() ||
+//                fourth.isEmpty() || fifth.isEmpty() || sixth.isEmpty() || seventh.isEmpty();
+//
+//        if (!condition)
+        Controller.db.fillChoices(Routine.sec, day, first, second, third,
+                fourth, fifth, sixth, seventh);
 
         if (day.equals("Fri")) {
-            super.notify("Routine Added",
-                    "Routine Successfully added for Class: " + Routine.sec, "confirm");
-            System.out.println("Routine for this class has been filled");
+//            super.notify("Routine Added",
+//                    "Routine Successfully added for Class: " + Routine.sec, "confirm");
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Alert");
+            alert.setContentText( "Routine for class " + Routine.sec +
+                    " has been successfully updated");
+            alert.showAndWait();
+//            System.out.println("Routine for this class has been filled");
+            button_cancel_pressed();
         }
         else
             super.sceneSwitcher("routine/routine.fxml", combo_class,
-                    "Routine", 600, 400);
+                    "Routine", 1200, 1000);
+    }
+
+    @FXML
+    protected void button_cancel_pressed()
+            throws IOException
+    {
+        sec = null;
+        days = new LinkedList<>();
+        super.goto_home(combo_class);
+//        super.sceneSwitcher("homepage/homepage.fxml", combo_class,
+//                "HomePage", 800, 600);
     }
 }

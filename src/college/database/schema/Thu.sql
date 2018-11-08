@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS Thu (
-  sno INT PRIMARY KEY AUTO_INCREMENT,
+  sno VARCHAR(6) PRIMARY KEY,
   first VARCHAR(6) default 'FALSE',
   second VARCHAR(6) default 'FALSE',
   third VARCHAR(6) default 'FALSE',

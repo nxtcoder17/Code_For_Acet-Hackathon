@@ -15,6 +15,15 @@ public class Homepage
     @FXML private Button button_roomsdb;
     @FXML private Button button_routine;
 
+    public void initialize()
+    {
+        if (Controller.student) {
+            button_roomsdb.setDisable(true);
+            button_routine.setDisable(true);
+            Controller.student = false;
+        }
+    }
+
     @FXML
     protected void button_search_pressed()
             throws IOException
@@ -36,6 +45,20 @@ public class Homepage
             throws IOException
     {
         super.sceneSwitcher("routine/routine.fxml", button_routine,
-                "ClassRoutines", 800, 400);
+                "ClassRoutines", 1200, 1000);
+    }
+
+    @FXML
+    protected void logout_method()
+            throws IOException
+    {
+        super.sceneSwitcher("login/login.fxml", button_search,
+                "Search Free ClassRoom", 800, 400);
+    }
+
+    @FXML
+    protected void exit_method()
+    {
+        System.exit(0);
     }
 }

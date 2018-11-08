@@ -6,9 +6,35 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="college.search.Search"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox fx:controller="college.search.Search"
+      xmlns:fx="https://javafx.com/fxml"
+      stylesheets="/college/themes/theme.css"
+      styleClass="rootPane" spacing="30"
+      alignment="CENTER" >
 
-</AnchorPane>
+    <HBox spacing="20" alignment="CENTER">
+        <Label text="Choose Period" styleClass="labels" />
+        <ComboBox fx:id="combo_period" promptText="Choose Period"
+                  prefWidth="300" styleClass="comboBox" />
+        <ComboBox fx:id="combo_days" promptText="Choose Period"
+                  prefWidth="300" styleClass="comboBox" />
+    </HBox>
+    <HBox spacing="100" alignment="CENTER">
+        <Button fx:id="button_submit" alignment="CENTER"
+                text="Submit" styleClass="submitButton"
+                prefWidth="100" prefHeight="30"
+                onAction="#button_submit_pressed"/>
+
+        <Button fx:id="button_cancel" alignment="CENTER"
+                text="Cancel" styleClass="submitButton"
+                prefWidth="100" prefHeight="30"
+                onAction="#button_cancel_pressed"/>
+    </HBox>
+
+    <VBox spacing="10" alignment="CENTER">
+        <Label fx:id="result_header" visible="false" alignment="CENTER"
+               styleClass="resultHeader" />
+        <Label fx:id="result_label" visible="false" alignment="CENTER"
+               styleClass="resultLabel" />
+    </VBox>
+</VBox>
