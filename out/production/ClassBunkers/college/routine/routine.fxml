@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox
+    fx:controller="college.routine.Routine"
+    xmlns:fx="https://javafx.org/fxml"
+    spacing="30"  stylesheets="/college/themes/theme.css"
+    styleClass="rootPane" >
+
+    <HBox spacing="50" alignment="CENTER">
+        <Label text="Class" alignment="CENTER" styleClass="headers" />
+        <ComboBox fx:id="combo_class" promptText="Choose Class" prefWidth="200"
+                  onAction="#comboBoxListener"/>
+    </HBox>
+
+    <HBox spacing="50" alignment="CENTER">
+        <Label text="Day of Week" alignment="CENTER" styleClass="headers" />
+        <!--<ComboBox fx:id="combo_day" promptText="Choose a day" prefWidth="200"/>-->
+        <TextField fx:id="field_day" prefWidth="200" editable="false"/>
+    </HBox>
+    <GridPane hgap="30" vgap="30" alignment="CENTER">
+        <Label GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+               text="Timings" styleClass="headers" />
+        <Label GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.halignment="CENTER"
+               text="ClassRoom" styleClass="headers" />
+
+        <Label GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+               text="9:00 - 9:55" styleClass="labels" />
+        <TextField GridPane.rowIndex="2" GridPane.columnIndex="2"
+                   fx:id="field_first" styleClass="textField"/>
+
+        <Label GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+               text="9:55 - 10:50" styleClass="labels" />
+        <TextField GridPane.rowIndex="3" GridPane.columnIndex="2"
+                   fx:id="field_second" styleClass="textField"/>
+
+        <Label GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+               text="10:50 - 11:45" styleClass="labels" />
+        <TextField GridPane.rowIndex="4" GridPane.columnIndex="2"
+                   fx:id="field_third" styleClass="textField" />
+
+        <Label GridPane.rowIndex="5" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+               text="11:45 - 12:40" styleClass="labels" />
+        <TextField GridPane.rowIndex="5" GridPane.columnIndex="2"
+                   fx:id="field_fourth" styleClass="textField" />
+
+        <Label GridPane.rowIndex="6" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+               text="01:35 - 2:30" styleClass="labels" />
+        <TextField GridPane.rowIndex="6" GridPane.columnIndex="2"
+                   fx:id="field_fifth" styleClass="textField" />
+
+        <Label GridPane.rowIndex="7" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+               text="02:30 - 03:25" styleClass="labels" />
+        <TextField GridPane.rowIndex="7" GridPane.columnIndex="2"
+                   fx:id="field_sixth" styleClass="textField" />
+
+        <Label GridPane.rowIndex="8" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+               text="03:25 - 04:15" styleClass="labels" />
+        <TextField GridPane.rowIndex="8" GridPane.columnIndex="2"
+                   fx:id="field_seventh" styleClass="textField" />
+    </GridPane>
+
+    <HBox spacing="50" alignment="CENTER" >
+        <Button fx:id="button_next" alignment="CENTER"
+                text="Next" styleClass="submitButton"
+                onAction="#button_next_pressed"/>
+    </HBox>
+</VBox>

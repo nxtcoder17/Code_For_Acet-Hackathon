@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:controller="college.homepage.Homepage" alignment="CENTER"
+      xmlns:fx="https://javafx.com/fxml"
+      stylesheets="/college/themes/theme.css"
+      styleClass="rootPane" spacing="30">
+
+    <Button fx:id="button_search" alignment="CENTER"
+            text="Check Free ClassRooms"
+            prefWidth="300" styleClass="submitButton"
+            onAction="#button_search_pressed" />
+
+    <Button fx:id="button_roomsdb" alignment="CENTER"
+            text="ClassRooms DB"
+            prefWidth="300" styleClass="submitButton"
+            onAction="#button_roomsdb_pressed" />
+
+    <Button fx:id="button_routine" alignment="CENTER"
+            text="ClassWise Routines"
+            prefWidth="300" styleClass="submitButton"
+            onAction="#button_routine_pressed" />
+</VBox>
+
