@@ -1,0 +1,1 @@
+java -classpath out/production/ClassBunkers:requirements/controlsfx-9.0.0.jar:requirements/mariadb-java-client-2.2.5.jar college.Main
